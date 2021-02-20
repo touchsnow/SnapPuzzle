@@ -1,0 +1,73 @@
+{
+  "ver": "1.0.17",
+  "importer": "image",
+  "imported": true,
+  "uuid": "b48f7199-3d12-49c5-bd61-c6e6e69b1e5c",
+  "files": [
+    ".png",
+    ".json"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "b48f7199-3d12-49c5-bd61-c6e6e69b1e5c@6c48a",
+      "displayName": "卡片",
+      "id": "6c48a",
+      "name": "texture",
+      "ver": "1.0.19",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "premultiplyAlpha": false,
+        "anisotropy": 1,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "b48f7199-3d12-49c5-bd61-c6e6e69b1e5c"
+      }
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "b48f7199-3d12-49c5-bd61-c6e6e69b1e5c@f9941",
+      "displayName": "卡片",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "ver": "1.0.8",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 786,
+        "height": 826,
+        "rawWidth": 786,
+        "rawHeight": 826,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "b48f7199-3d12-49c5-bd61-c6e6e69b1e5c@6c48a",
+        "atlasUuid": ""
+      }
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "redirect": "b48f7199-3d12-49c5-bd61-c6e6e69b1e5c@f9941"
+  }
+}

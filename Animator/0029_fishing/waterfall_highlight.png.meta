@@ -1,0 +1,40 @@
+{
+  "ver": "1.0.17",
+  "importer": "image",
+  "imported": true,
+  "uuid": "ece13a70-cb30-4685-8d0d-a48ab909b154",
+  "files": [
+    ".png",
+    ".json"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "ece13a70-cb30-4685-8d0d-a48ab909b154@6c48a",
+      "displayName": "waterfall_highlight",
+      "id": "6c48a",
+      "name": "texture",
+      "ver": "1.0.19",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "premultiplyAlpha": false,
+        "anisotropy": 1,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "ece13a70-cb30-4685-8d0d-a48ab909b154"
+      }
+    }
+  },
+  "userData": {
+    "type": "texture",
+    "redirect": "ece13a70-cb30-4685-8d0d-a48ab909b154@6c48a"
+  }
+}

@@ -1,0 +1,227 @@
+// Effect Syntax Guide: https://github.com/cocos-creator/docs-3d/blob/master/zh/material-system/effect-syntax.md
+
+CCEffect %{
+  techniques:
+  - name: opaque
+    passes:
+    - vert: phong-vs:vert
+      frag: phong-fs:frag
+      properties: &props
+        moveScalex:  { value: 1 , target: MoveScalex,inspector : { displayName : "MoveScalex" }}
+        moveScaley:  { value: 1 , target: MoveScaley,inspector : { displayName : "MoveScaley" }}
+        moveScalez:  { value: 1 , target: MoveScalez,inspector : { displayName : "MoveScalez" }}
+
+        moveSpeedx:  { value: 1 , target: MoveSpeedx,inspector : { displayName : "MoveSpeedx" }}
+        moveSpeedy:  { value: 1 , target: MoveSpeedy,inspector : { displayName : "MoveSpeedy" }}
+        moveSpeedz:  { value: 1 , target: MoveSpeedz,inspector : { displayName : "MoveSpeedz" }}
+
+        freqx:  { value: 1 , target: Freqx,inspector : { displayName : "Freqx" }}
+        freqy:  { value: 1 , target: Freqy,inspector : { displayName : "Freqy" }}
+        freqz:  { value: 1 , target: Freqz,inspector : { displayName : "Freqz" }}
+
+        brightColor:      { value: [1.0, 1.0, 1.0, 1.0], target: BrightColor, editor: { displayName: BrightColor, type: color } }
+        darkColor:      { value: [1.0, 1.0, 1.0, 1.0], target: DarkColor, editor: { displayName: DarkColor, type: color } }
+        specularColor :      { value: [1.0, 1.0, 1.0, 1.0], target: specular, editor: { displayName: SpecularColor, type: color } }
+  - name: transparent
+    passes:
+    - vert: phong-vs:vert
+      frag: phong-fs:frag
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendSrcAlpha: src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      properties: *props
+}%
+
+CCProgram shared-ubos %{
+  uniform Constants {
+    vec4 BrightColor;
+    vec4 DarkColor;
+    vec4 specular;
+    float MoveScalex;
+    float MoveScaley;
+    float MoveScalez;
+    float MoveSpeedx;
+    float MoveSpeedy;
+    float MoveSpeedz;
+    float Freqx;
+    float Freqy;
+    float Freqz;
+  };
+}%
+
+CCProgram phong-vs %{
+  precision mediump float;
+  #include <cc-global>
+  #include <cc-local-batch>
+  #include <input-standard>
+  #include <shared-ubos>
+
+  #if USE_VERTEX_COLOR
+    in vec4 a_color;
+    out vec4 v_color;
+  #endif
+  out vec3 v_normal;
+  out vec3 worldPosition;
+
+
+  highp vec4 vert () {
+
+    StandardVertInput In;
+    CCVertInput(In);
+
+    mat4 matWorld, matWorldIT;
+    CCGetWorldMatrixFull(matWorld, matWorldIT);
+
+    vec4 WorldPos = matWorld * In.position;
+    worldPosition = vec3(WorldPos.x,WorldPos.y,WorldPos.z);
+    vec4 tempPos = In.position;
+    float x = tempPos.x;
+    float y = tempPos.y;
+    float z = tempPos.z;
+    //x= x*300.0;
+    //y= y*300.0;
+    highp vec4 pos;
+    vec3 normal;
+    float scale1 = 2.0;
+    float scale2 = 2.0;
+    if(MoveScalez == 0.0)
+    {
+      tempPos.z += sin(Freqx*x+cc_time.x*MoveSpeedx)*MoveScalex;
+      tempPos.z += sin(Freqx/10.0*x+cc_time.x*MoveSpeedx/5.0)*MoveScalex*scale1;
+      tempPos.z += sin(-Freqx/50.0*x+cc_time.x*MoveSpeedx/10.0)*MoveScalex*scale2;
+
+      tempPos.z += sin(Freqy*y+cc_time.x*MoveSpeedy)*MoveScaley;
+      tempPos.z += sin(Freqy/50.0*y+cc_time.x*MoveSpeedy/5.0)*MoveScaley*scale1;
+      tempPos.z += sin(Freqy/20.0*y+cc_time.x*MoveSpeedy/10.0)*MoveScaley*scale2;
+
+      pos = cc_matProj * (cc_matView * matWorld) * tempPos;
+      float normalx = -MoveScalex*cos(cc_time.x*MoveSpeedx+x*Freqx)*Freqx + -scale1*MoveScalex*cos(cc_time.x*MoveSpeedx/5.0+x*Freqx/10.0)*Freqx/10.0 + -scale2*MoveScalex*cos(cc_time.x*MoveSpeedx/10.0+x*-Freqx/50.0)*-Freqx/50.0;
+      float normaly = -MoveScaley*cos(cc_time.x*MoveSpeedy+y*Freqy)*Freqy + -scale1*MoveScaley*cos(cc_time.x*MoveSpeedy/5.0+y*Freqy/50.0)*Freqy/50.0 + -scale2*MoveScaley*cos(cc_time.x*MoveSpeedy/10.0+z*Freqy/20.0)*Freqy/20.0;
+      normal = vec3(normalx,normaly,1);
+    }
+    else if(MoveScalex == 0.0)
+    {
+      tempPos.x += sin(Freqy*y+cc_time.x*MoveSpeedy)*MoveScaley;
+      tempPos.x += sin(Freqy/10.0*y+cc_time.x*MoveSpeedy/5.0)*MoveScaley*scale1;
+      tempPos.x += sin(-Freqy/50.0*y+cc_time.x*MoveSpeedy/10.0)*MoveScaley*scale2;
+
+      tempPos.x += sin(Freqz*z+cc_time.x*MoveSpeedz)*MoveScalez;
+      tempPos.x += sin(Freqz/50.0*z+cc_time.x*MoveSpeedz/5.0)*MoveScalez*scale1;
+      tempPos.x += sin(Freqz/20.0*z+cc_time.x*MoveSpeedz/10.0)*MoveScalez*scale2;
+
+      pos = cc_matProj * (cc_matView * matWorld) * tempPos;
+      float normaly = -MoveScaley*cos(cc_time.x*MoveSpeedy+y*Freqy)*Freqy + -scale1*MoveScaley*cos(cc_time.x*MoveSpeedy/5.0+y*Freqy/50.0)*Freqy/50.0 + -scale2*MoveScaley*cos(cc_time.x*MoveSpeedy/10.0+z*Freqy/20.0)*Freqy/20.0;
+      float normalz = -MoveScalez*cos(cc_time.x*MoveSpeedz+z*Freqz)*Freqz + -scale1*MoveScalez*cos(cc_time.x*MoveSpeedz/5.0+z*Freqz/50.0)*Freqz/50.0 + -scale2*MoveScalez*cos(cc_time.x*MoveSpeedz/10.0+z*Freqz/20.0)*Freqz/20.0;
+      normal = vec3(1,normaly,normalz);
+    }
+    else if(MoveScaley == 0.0)
+    {
+      tempPos.y += sin(Freqx*x+cc_time.x*MoveSpeedx)*MoveScalex;
+      tempPos.y += sin(Freqx/10.0*x+cc_time.x*MoveSpeedx/5.0)*MoveScalex*scale1;
+      tempPos.y += sin(-Freqx/50.0*x+cc_time.x*MoveSpeedx/10.0)*MoveScalex*scale2;
+
+      tempPos.y += sin(Freqz*z+cc_time.x*MoveSpeedz)*MoveScalez;
+      tempPos.y += sin(Freqz/50.0*z+cc_time.x*MoveSpeedz/5.0)*MoveScalez*scale1;
+      tempPos.y += sin(Freqz/20.0*z+cc_time.x*MoveSpeedz/10.0)*MoveScalez*scale2;
+
+      pos = cc_matProj * (cc_matView * matWorld) * tempPos;
+      float normalx = -MoveScalex*cos(cc_time.x*MoveSpeedx+x*Freqx)*Freqx + -scale1*MoveScalex*cos(cc_time.x*MoveSpeedx/5.0+x*Freqx/10.0)*Freqx/10.0 + -scale2*MoveScalex*cos(cc_time.x*MoveSpeedx/10.0+x*-Freqx/50.0)*-Freqx/50.0;
+      float normalz = -MoveScalez*cos(cc_time.x*MoveSpeedz+z*Freqz)*Freqz + -scale1*MoveScalez*cos(cc_time.x*MoveSpeedz/5.0+z*Freqz/50.0)*Freqz/50.0 + -scale2*MoveScalez*cos(cc_time.x*MoveSpeedz/10.0+z*Freqz/20.0)*Freqz/20.0;
+      normal = vec3(normalx,1,normalz);
+    }
+
+
+    // if(MoveScaley == 0.0)
+    // {
+    //   tempPos.y += sin(200.0*x+cc_time.x*MoveSpeedx)*MoveScalex;
+    //   tempPos.y += sin(100.0*z+cc_time.x*MoveSpeedz)*MoveScalez;
+    //   pos = cc_matProj * (cc_matView * matWorld) * tempPos;
+    //   normal = vec3(normal.x-MoveScalex*cos(cc_time.x*MoveSpeedx+x*200.0)*200.0,1,normal.y-MoveScalez*cos(cc_time.x*MoveSpeedz+z*100.0)*100.0);
+    // }
+
+    normal = normalize((matWorldIT * vec4(normal, 0.0)).xyz);
+    v_normal = vec3(normal.x,normal.y,-normal.z);
+
+
+    #if USE_VERTEX_COLOR
+      v_color = a_color;
+    #endif 
+    return pos;
+  }
+}%
+
+
+
+CCProgram phong-fs %{
+  precision mediump float;
+  #include <cc-global>
+  #include <output>
+  #include <shared-ubos>
+
+  #if USE_VERTEX_COLOR
+    in vec4 v_color;
+  #endif
+    in vec3 v_normal;
+    in vec3 worldPosition;
+  vec4 frag () {
+    vec4 Bright = BrightColor;
+    vec4 Dark = DarkColor;
+
+    vec3 lightDir = vec3(0,0,1);//cc_mainLitDir.xyz;
+    float diffuseScale = dot(v_normal,lightDir);
+    if(diffuseScale <= 0.0)
+    {
+      diffuseScale = 0.0;
+    }
+    if(diffuseScale>=1.0)
+    {
+      diffuseScale = 1.0;
+    }
+
+    vec3 viewDir = normalize(cc_cameraPos.xyz - worldPosition);
+    vec3 reflectDir = lightDir - 2.0*(dot(v_normal,lightDir))*v_normal;
+    float specularScale1 = pow(dot(viewDir,reflectDir),6.0);
+    if(specularScale1<=0.0)
+    {
+      specularScale1 = 0.0;
+    }
+    if(specularScale1 >=1.0)
+    {
+      specularScale1 = 1.0;
+    }
+    //specularScale1 = abs(1.0-specularScale1);
+
+    vec4 specularColor1 = vec4(specular.xyz*specularScale1,specular.w);
+
+    float BrightColor =dot(v_normal,lightDir);
+
+    BrightColor = BrightColor/2.0+0.5;
+
+    //BrightColor = abs(1.0-BrightColor);
+    // if(diffColor<=0.5)
+    // {
+    //   diffColor = 0.5;
+    // }
+
+    // if(diffColor>=0.9&&diffColor<=0.95)
+    // {
+    //   diffColor = 0.95;
+    // }
+    // if(diffColor>=0.95)
+    // {
+    //   diffColor = 1.0;
+    // }
+    
+    Bright.xyz = Bright.xyz*BrightColor + Dark.xyz*(1.0-BrightColor);
+    vec4 o = Bright;
+
+    //base *= v_color;
+    return CCFragOutput(o);
+  }
+}%
+
+

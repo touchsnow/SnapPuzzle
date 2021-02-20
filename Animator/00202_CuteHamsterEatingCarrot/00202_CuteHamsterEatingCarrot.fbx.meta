@@ -1,0 +1,111 @@
+{
+  "ver": "1.3.19",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "039663ac-d8f3-42a1-8a3e-f8de1a60e432",
+  "files": [],
+  "subMetas": {
+    "31192": {
+      "importer": "gltf-material",
+      "uuid": "039663ac-d8f3-42a1-8a3e-f8de1a60e432@31192",
+      "displayName": "",
+      "id": "31192",
+      "name": "00202_CuteHamsterEatingCarrot.material",
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "gltfIndex": 0
+      }
+    },
+    "c5deb": {
+      "importer": "gltf-mesh",
+      "uuid": "039663ac-d8f3-42a1-8a3e-f8de1a60e432@c5deb",
+      "displayName": "",
+      "id": "c5deb",
+      "name": "carrot.mesh",
+      "ver": "1.0.9",
+      "imported": true,
+      "files": [
+        ".json",
+        ".bin"
+      ],
+      "subMetas": {},
+      "userData": {
+        "gltfIndex": 0
+      }
+    },
+    "db513": {
+      "importer": "gltf-mesh",
+      "uuid": "039663ac-d8f3-42a1-8a3e-f8de1a60e432@db513",
+      "displayName": "",
+      "id": "db513",
+      "name": "hamster.mesh",
+      "ver": "1.0.9",
+      "imported": true,
+      "files": [
+        ".json",
+        ".bin"
+      ],
+      "subMetas": {},
+      "userData": {
+        "gltfIndex": 1
+      }
+    },
+    "1101c": {
+      "importer": "gltf-mesh",
+      "uuid": "039663ac-d8f3-42a1-8a3e-f8de1a60e432@1101c",
+      "displayName": "",
+      "id": "1101c",
+      "name": "log.mesh",
+      "ver": "1.0.9",
+      "imported": true,
+      "files": [
+        ".json",
+        ".bin"
+      ],
+      "subMetas": {},
+      "userData": {
+        "gltfIndex": 2
+      }
+    },
+    "ce7da": {
+      "importer": "gltf-scene",
+      "uuid": "039663ac-d8f3-42a1-8a3e-f8de1a60e432@ce7da",
+      "displayName": "",
+      "id": "ce7da",
+      "name": "00202_CuteHamsterEatingCarrot.prefab",
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "gltfIndex": 0
+      }
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "redirect": "039663ac-d8f3-42a1-8a3e-f8de1a60e432@ce7da",
+    "assetFinder": {
+      "meshes": [
+        "039663ac-d8f3-42a1-8a3e-f8de1a60e432@c5deb",
+        "039663ac-d8f3-42a1-8a3e-f8de1a60e432@db513",
+        "039663ac-d8f3-42a1-8a3e-f8de1a60e432@1101c"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "039663ac-d8f3-42a1-8a3e-f8de1a60e432@31192"
+      ],
+      "scenes": [
+        "039663ac-d8f3-42a1-8a3e-f8de1a60e432@ce7da"
+      ]
+    }
+  }
+}

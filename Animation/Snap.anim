@@ -1,0 +1,239 @@
+[
+  {
+    "__type__": "cc.AnimationClip",
+    "_name": "Snap",
+    "_objFlags": 0,
+    "_native": "",
+    "sample": 60,
+    "speed": 2,
+    "wrapMode": 1,
+    "events": [],
+    "_duration": 1,
+    "_keys": [
+      [
+        0,
+        0.5,
+        1
+      ],
+      [
+        0,
+        0.16666666666666666,
+        0.6666666666666666,
+        1
+      ],
+      [
+        0,
+        0.8333333333333334,
+        1
+      ],
+      [
+        0,
+        0.4166666666666667,
+        0.9166666666666666,
+        1
+      ],
+      [
+        0,
+        0.5833333333333334,
+        1
+      ]
+    ],
+    "_stepness": 0,
+    "_curves": [
+      {
+        "modifiers": [
+          {
+            "__id__": 1
+          },
+          "scale"
+        ],
+        "data": {
+          "keys": 0,
+          "values": [
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          ],
+          "easingMethods": {}
+        }
+      },
+      {
+        "modifiers": [
+          {
+            "__id__": 2
+          },
+          "scale"
+        ],
+        "data": {
+          "keys": 1,
+          "values": [
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          ],
+          "easingMethods": {}
+        }
+      },
+      {
+        "modifiers": [
+          {
+            "__id__": 3
+          },
+          "scale"
+        ],
+        "data": {
+          "keys": 2,
+          "values": [
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          ],
+          "easingMethods": {}
+        }
+      },
+      {
+        "modifiers": [
+          {
+            "__id__": 4
+          },
+          "scale"
+        ],
+        "data": {
+          "keys": 3,
+          "values": [
+            {
+              "__type__": "cc.Vec3",
+              "x": 0.02,
+              "y": 0.02,
+              "z": 0
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0.5,
+              "y": 0.5,
+              "z": 0
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 1,
+              "y": 1,
+              "z": 1
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          ],
+          "easingMethods": {}
+        }
+      },
+      {
+        "modifiers": [
+          {
+            "__id__": 5
+          },
+          "scale"
+        ],
+        "data": {
+          "keys": 4,
+          "values": [
+            {
+              "__type__": "cc.Vec3",
+              "x": 0.02,
+              "y": 0,
+              "z": 0
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0.6666666666666667,
+              "y": 0.6666666666666667,
+              "z": 0
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0.6666666666666667,
+              "y": 0.6666666666666667,
+              "z": 0
+            }
+          ],
+          "easingMethods": {}
+        }
+      }
+    ],
+    "_commonTargets": [],
+    "_hash": 697199917
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "S"
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "N"
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "A"
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "P"
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "！"
+  }
+]

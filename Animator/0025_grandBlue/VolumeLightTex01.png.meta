@@ -1,0 +1,40 @@
+{
+  "ver": "1.0.17",
+  "importer": "image",
+  "imported": true,
+  "uuid": "3c1c5c6e-98fe-4081-a7bb-f38a9b0b8d31",
+  "files": [
+    ".png",
+    ".json"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "3c1c5c6e-98fe-4081-a7bb-f38a9b0b8d31@6c48a",
+      "displayName": "VolumeLightTex01",
+      "id": "6c48a",
+      "name": "texture",
+      "ver": "1.0.19",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "premultiplyAlpha": false,
+        "anisotropy": 1,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "3c1c5c6e-98fe-4081-a7bb-f38a9b0b8d31"
+      }
+    }
+  },
+  "userData": {
+    "type": "texture",
+    "redirect": "3c1c5c6e-98fe-4081-a7bb-f38a9b0b8d31@6c48a"
+  }
+}

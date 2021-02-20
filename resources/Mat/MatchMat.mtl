@@ -1,0 +1,32 @@
+{
+  "__type__": "cc.Material",
+  "_name": "",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "9a0ef143-a029-4f91-8610-87baf5d9866b"
+  },
+  "_techIdx": 0,
+  "_defines": [
+    {
+      "USE_VERTEX_COLOR": true
+    }
+  ],
+  "_states": [
+    {
+      "blendState": {
+        "targets": [
+          {}
+        ]
+      },
+      "depthStencilState": {},
+      "rasterizerState": {}
+    }
+  ],
+  "_props": [
+    {
+      "progress": 0,
+      "halfWidth": 0.1
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "ver": "1.0.17",
+  "importer": "image",
+  "imported": true,
+  "uuid": "dcbaab1d-e7f9-4b6b-a050-ba2a9c0c86b4",
+  "files": [
+    ".png",
+    ".json"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "dcbaab1d-e7f9-4b6b-a050-ba2a9c0c86b4@6c48a",
+      "displayName": "LevelSprite2",
+      "id": "6c48a",
+      "name": "texture",
+      "ver": "1.0.19",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "premultiplyAlpha": false,
+        "anisotropy": 1,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "dcbaab1d-e7f9-4b6b-a050-ba2a9c0c86b4"
+      }
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "dcbaab1d-e7f9-4b6b-a050-ba2a9c0c86b4@f9941",
+      "displayName": "LevelSprite2",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "ver": "1.0.8",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 1,
+        "offsetY": -1,
+        "trimX": 3,
+        "trimY": 3,
+        "width": 1801,
+        "height": 1079,
+        "rawWidth": 1805,
+        "rawHeight": 1083,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "dcbaab1d-e7f9-4b6b-a050-ba2a9c0c86b4@6c48a",
+        "atlasUuid": ""
+      }
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "redirect": "dcbaab1d-e7f9-4b6b-a050-ba2a9c0c86b4@f9941"
+  }
+}

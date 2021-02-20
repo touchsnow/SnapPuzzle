@@ -1,0 +1,40 @@
+{
+  "ver": "1.0.17",
+  "importer": "image",
+  "imported": true,
+  "uuid": "9a498759-c982-4949-b5e0-4418ac457273",
+  "files": [
+    ".png",
+    ".json"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "9a498759-c982-4949-b5e0-4418ac457273@6c48a",
+      "displayName": "Bump",
+      "id": "6c48a",
+      "name": "texture",
+      "ver": "1.0.19",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "premultiplyAlpha": false,
+        "anisotropy": 1,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "9a498759-c982-4949-b5e0-4418ac457273"
+      }
+    }
+  },
+  "userData": {
+    "type": "texture",
+    "redirect": "9a498759-c982-4949-b5e0-4418ac457273@6c48a"
+  }
+}

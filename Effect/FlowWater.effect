@@ -1,0 +1,216 @@
+// Effect Syntax Guide: https://github.com/cocos-creator/docs-3d/blob/master/zh/material-system/effect-syntax.md
+
+CCEffect %{
+  techniques:
+  - name: opaque
+    passes:
+    - vert: phong-vs:vert
+      frag: phong-fs:frag
+      properties: &props
+        tilingOffset: { value: [1, 1, 0, 0] }
+        moveScale:  { value: 1 , target: MoveScale,inspector : { displayName : "MoveScale" }}
+        moveSpeed:  { value: 1 , target: MoveSpeed,inspector : { displayName : "MoveSpeed" }}
+        normalStep:  { value: 1 , target: NormalStep,inspector : { displayName : "NormalStep" }}
+        baseScale:  { value: 1 , target: BaseScale,inspector : { displayName : "BaseScale" }}
+        gloss:  { value: 20 , target: Gloss,inspector : { displayName : "Gloss" }}
+        diffuse:  { value: 1 , target: Diffuse,inspector : { displayName : "Diffuse" }}
+        mainColor:      { value: [1.0, 1.0, 1.0, 1.0], target: albedo, editor: { displayName: Albedo, type: color } }
+        specularColor :      { value: [1.0, 1.0, 1.0, 1.0], target: specular, editor: { displayName: SpecularColor, type: color } }
+  - name: transparent
+    passes:
+    - vert: phong-vs:vert
+      frag: phong-fs:frag
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendSrcAlpha: src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      properties: *props
+}%
+
+CCProgram shared-ubos %{
+  uniform Constants {
+    vec4 tilingOffset;
+    vec4 albedo;
+    vec4 specular;
+    float Gloss;
+    float Diffuse;
+    float MoveScale;
+    float MoveSpeed;
+    float BaseScale;
+    float NormalStep;
+  };
+}%
+
+CCProgram phong-vs %{
+  precision mediump float;
+  #include <cc-global>
+  #include <cc-local-batch>
+  #include <input-standard>
+  #include <shared-ubos>
+
+  #if USE_VERTEX_COLOR
+    in vec4 a_color;
+    out vec4 v_color;
+  #endif
+  out vec3 v_normal;
+  out vec3 worldPosition;
+
+
+  highp vec4 vert () {
+
+    StandardVertInput In;
+    CCVertInput(In);
+
+    mat4 matWorld, matWorldIT;
+    CCGetWorldMatrixFull(matWorld, matWorldIT);
+
+    vec4 WorldPos = matWorld * In.position;
+    worldPosition = vec3(WorldPos.x,WorldPos.y,WorldPos.z);
+    vec4 tempPos = In.position;
+    float x = tempPos.x;
+    float y = tempPos.y;
+    float z = tempPos.z;
+    x= x*1000.0;
+    y= y*300.0;
+    z= z*1000.0;
+    //x= x*10.0;
+    //tempPos.x *=10;
+    //tempPos.x += sin(cc_time.x*MoveSpeed+y)*MoveScale;
+    tempPos.z += sin(cc_time.x*MoveSpeed+x)*MoveScale;
+    //tempPos.y += sin(cc_time.x*MoveSpeed+x)*MoveScale;
+    //tempPos.y += sin(cc_time.x*MoveSpeed+z)*MoveScale;
+    //In.position.y += sin(cc_time.x)
+    highp vec4 pos = cc_matProj * (cc_matView * matWorld) * tempPos;
+
+    
+    vec3 normal = normalize((matWorldIT * vec4(In.normal, 0.0)).xyz);
+    normal = vec3(-MoveScale*cos(cc_time.x*MoveSpeed+x)*cc_time.x*MoveSpeed,0,1);
+
+    normal = normalize((matWorldIT * vec4(normal, 0.0)).xyz);
+    // if(sin(cc_time.x*MoveSpeed+x)>=0.0)
+    // {
+    //   normal.x += NormalStep;
+    //   normal.z -= NormalStep;
+    // }
+    // else
+    // {
+    //   normal.x -= NormalStep;
+    //   normal.z += NormalStep;
+    // }
+    //v_normal = normalize(vec3(-normal.x,-normal.y,-normal.z));
+    v_normal = vec3(-normal.x,-normal.y,-normal.z);
+    #if USE_VERTEX_COLOR
+      v_color = a_color;
+    #endif 
+    //pos.z += sin(cc_time.x*MoveSpeed+pos.x)*MoveScale;
+    return pos;
+  }
+}%
+
+
+
+CCProgram phong-fs %{
+  precision mediump float;
+  #include <cc-global>
+  #include <output>
+  #include <shared-ubos>
+
+  #if USE_VERTEX_COLOR
+    in vec4 v_color;
+  #endif
+    in vec3 v_normal;
+    in vec3 worldPosition;
+  vec4 frag () {
+    vec4 base = albedo;
+
+    vec4 mainLitColor = cc_mainLitColor;
+    vec3 lightDir = cc_mainLitDir.xyz;
+
+    //vec3 PosToLitDir = mormalize()
+
+    float diffuseScale = dot(v_normal,lightDir);
+    if(diffuseScale <= 0.0)
+    {
+      diffuseScale = 0.0;
+    }
+    if(diffuseScale>=1.0)
+    {
+      diffuseScale = 1.0;
+    }
+
+    vec4 diffuseColor = vec4(base.x*diffuseScale*Diffuse,base.y*diffuseScale*Diffuse,base.z*diffuseScale*Diffuse,base.w);
+
+    vec3 viewDir = normalize(cc_cameraPos.xyz - worldPosition);
+
+
+    //vec3 halfDir = normalize(lightDir+viewDir);
+
+    float specularScale =dot(lightDir,v_normal);
+    specularScale = specularScale/2.0+0.5;
+    //pow(specularScale,Gloss)
+    //specularScale = pow(abs(specularScale),2.0);
+
+
+
+    // if(specularScale<=0.0)
+    // {
+    //   specularScale=1.0;
+    // }
+    // if(specularScale>=0.0&&specularScale<=0.1)
+    // {
+    //   specularScale=0.9;
+    // }
+    // if(specularScale>=0.1&&specularScale<=0.2)
+    // {
+    //   specularScale=0.8;
+    // }
+    // if(specularScale>=0.2&&specularScale<=0.3)
+    // {
+    //   specularScale=0.7;
+    // }
+    // if(specularScale>=0.3&&specularScale<=0.4)
+    // {
+    //   specularScale=0.6;
+    // }
+    // if(specularScale>=0.4&&specularScale<=0.5)
+    // {
+    //   specularScale=0.5;
+    // }
+    // if(specularScale<=0.5&&specularScale<=0.6)
+    // {
+    //   specularScale=0.4;
+    // }
+    // if(specularScale>=0.6&&specularScale<=0.7)
+    // {
+    //   specularScale=0.3;
+    // }
+    // if(specularScale>=0.7&&specularScale<=0.8)
+    // {
+    //   specularScale=0.2;
+    // }
+    // if(specularScale>=0.8&&specularScale<=0.9)
+    // {
+    //   specularScale=0.1;
+    // }
+    // if(specularScale>=0.9&&specularScale<=1.0)
+    // {
+    //   specularScale=0.0;
+    // }
+
+    //vec4 specularColor = vec4(specular.x* pow(specularScale,Gloss),specular.y* pow(specularScale,Gloss),specular.z* pow(specularScale,Gloss),specular.w* pow(specularScale,Gloss));
+    //vec4 baseColor = vec4((base*v_color).x*BaseScale*(1.0-specularScale),(base*v_color).y*BaseScale*(1.0-specularScale),(base*v_color).z*BaseScale*(1.0-specularScale),(base*v_color).z);
+
+    //vec4 o = baseColor + diffuseColor*v_color*mainLitColor +  specularColor*mainLitColor;
+    //diffuseColor.xzy = diffuseColor.xyz*specularScale;
+    base.xyz = base.xyz*specularScale;
+    vec4 o = base;
+
+    //base *= v_color;
+    return CCFragOutput(o);
+  }
+}%
+
+

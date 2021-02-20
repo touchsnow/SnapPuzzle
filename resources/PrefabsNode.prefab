@@ -1,0 +1,109 @@
+[
+  {
+    "__type__": "cc.Prefab",
+    "_name": "",
+    "_objFlags": 0,
+    "_native": "",
+    "data": {
+      "__id__": 1
+    },
+    "optimizationPolicy": 0,
+    "asyncLoadAssets": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "PrefabsNode",
+    "_objFlags": 0,
+    "_parent": null,
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 2
+      }
+    ],
+    "_prefab": {
+      "__id__": 3
+    },
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_layer": 1073741824,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "e3db5090dlIJqIOhAcWSA2O",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "prefabs": [
+      {
+        "__uuid__": "6a27bd53-0cdc-4b9f-96de-da11ebc19f18"
+      },
+      {
+        "__uuid__": "db573afe-bd77-488d-beaf-1ac52d1dba23"
+      }
+    ],
+    "spriteAtlas": [
+      {
+        "__uuid__": "7135597e-e1c9-446d-8ed4-f55003cb6cc0"
+      },
+      {
+        "__uuid__": "5476a249-a0a8-48ce-85a7-487a37402d94"
+      },
+      {
+        "__uuid__": "ed2b41b1-31a3-4cb5-bfc5-5eb888f8f114"
+      },
+      {
+        "__uuid__": "03ac88c0-517d-48ff-aa7e-da91e4bc43c6"
+      },
+      {
+        "__uuid__": "39554a72-7fcd-443b-8a6f-03d1fe959192"
+      },
+      {
+        "__uuid__": "30e0c502-0faf-4ec2-8e8e-d56d87792b4e"
+      }
+    ],
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__id__": 0
+    },
+    "fileId": "bbOaWYUaVOUY5V5fQUMEMi",
+    "sync": false,
+    "_synced": {
+      "default": false,
+      "serializable": false
+    }
+  }
+]

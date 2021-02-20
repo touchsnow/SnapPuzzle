@@ -1,0 +1,125 @@
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: toy-vs:vert
+      frag: toy-fs:frag
+      depthStencilState: &d1
+        depthTest: true
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      properties: &props
+        mainColor:      { value: [1.0, 1.0, 1.0, 1.0], target: MainColor, editor: { displayName: MainColor, type: color } }
+
+}%
+
+CCProgram shared-ubos %{
+  uniform Constants {
+    vec4 MainColor;
+  };
+}%
+
+
+CCProgram toy-vs %{
+  precision mediump float;
+  #include <cc-global>
+  #include <cc-local>
+  #include <input>
+
+  in vec2 a_texCoord;
+  out vec2 v_uv;
+
+  highp vec4 vert () {
+    highp vec4 position;
+    CCVertInput(position);
+    v_uv = vec2(a_texCoord.x, 1.0 - a_texCoord.y);
+    return cc_matViewProj * cc_matWorld * position;
+  }
+}%
+
+CCProgram toy-fs %{
+  precision mediump float;
+  #include <cc-global>
+  #include <output>
+
+  #define iResolution cc_screenSize
+  #define iTime cc_time.x
+  #define iTimeDelta cc_time.y
+  #define iFrame cc_time.z
+
+  #include "shadertoy"
+  #include <shared-ubos>
+
+  in vec2 v_uv;
+    vec3 RGBConvertToHSV(vec3 rgb) {
+    float R = rgb.x, G = rgb.y, B = rgb.z;
+    vec3 hsv;
+    float max1 = max(R,max(G,B));
+    float min1 = min(R,min(G,B));
+    if (R == max1) {
+      hsv.x = (G-B)/(max1-min1);
+    }
+    if (G == max1) {
+      hsv.x = 2.0 + (B-R)/(max1-min1);
+    }
+    if (B == max1) {
+      hsv.x = 4.0 + (R-G)/(max1-min1);
+    }
+    hsv.x = hsv.x * 60.0;   
+    if (hsv.x < 0.0) hsv.x = hsv.x + 360.0;
+    hsv.z = max1;
+    hsv.y = (max1 - min1) / max1;
+    return hsv;
+  }
+
+  vec3 HSVConvertToRGB(vec3 hsv) {
+    float R,G,B;
+    if( hsv.y == 0.0 ) {
+      R=G=B=hsv.z;
+    }
+    else {
+      hsv.x = hsv.x/60.0; 
+      int i = int(hsv.x);
+      float f = hsv.x - float(i);
+      float a = hsv.z * ( 1.0 - hsv.y );
+      float b = hsv.z * ( 1.0 - hsv.y * f );
+      float c = hsv.z * ( 1.0 - hsv.y * (1.0 - f ) );
+      if(i == 0) {
+        R = hsv.z; G = c; B = a;
+      }
+      else if(i == 1) {
+        R = b; G = hsv.z; B = a; 
+      }
+      else if(i == 2) {
+        R = a; G = hsv.z; B = c; 
+      }
+      else if(i == 3) {
+        R = a; G = b; B = hsv.z;
+      }
+      else if(i == 4) {
+        R = c; G = a; B = hsv.z;
+      }
+      else {
+        R = hsv.z; G = a; B = b; 
+      }
+    }
+    return vec3(R,G,B);
+  }
+
+
+  vec4 frag () {
+    vec4 o;
+    mainImage(o, v_uv * cc_screenSize.xy); // simulate fragCoord with mesh uv
+    vec3 newColor = RGBConvertToHSV(MainColor.xyz);
+    newColor.y+=0.4;
+    vec4 outPutColor = vec4(HSVConvertToRGB(newColor),1);
+    vec4 p;
+    p = o*0.3+outPutColor;
+    p.a = MainColor.a;
+    return CCFragOutput(p);
+  }
+}%

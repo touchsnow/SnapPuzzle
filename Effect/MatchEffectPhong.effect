@@ -1,0 +1,142 @@
+// Effect Syntax Guide: https://github.com/cocos-creator/docs-3d/blob/master/zh/material-system/effect-syntax.md
+
+CCEffect %{
+  techniques:
+  - name: opaque
+    passes:
+    - vert: phong-vs:vert
+      frag: phong-fs:frag
+      properties: &props
+        tilingOffset: { value: [1, 1, 0, 0] }
+        gloss:  { value: 20 , target: Gloss,inspector : { displayName : "Gloss" }}
+        diffuse:  { value: 1 , target: Diffuse,inspector : { displayName : "Diffuse" }}
+        mainColor:      { value: [1.0, 1.0, 1.0, 1.0], target: albedo, editor: { displayName: Albedo, type: color } }
+        specularColor :      { value: [1.0, 1.0, 1.0, 1.0], target: specular, editor: { displayName: SpecularColor, type: color } }
+        progress:      { value: 1.0, target: Progress }
+        halfWidth:      { value: 1.0, target: HalfWidth }
+  - name: transparent
+    passes:
+    - vert: phong-vs:vert
+      frag: phong-fs:frag
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendSrcAlpha: src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      properties: *props
+}%
+
+CCProgram shared-ubos %{
+  uniform Constants {
+    vec4 tilingOffset;
+    vec4 albedo;
+    vec4 specular;
+    float Gloss;
+    float Diffuse;
+    float Progress;
+    float HalfWidth;
+  };
+}%
+
+CCProgram phong-vs %{
+  precision mediump float;
+  #include <cc-global>
+  #include <cc-local-batch>
+  #include <input-standard>
+  #include <shared-ubos>
+
+  #if USE_VERTEX_COLOR
+    in vec4 a_color;
+    out vec4 v_color;
+    out float posx;
+  #endif
+  out vec3 v_normal;
+  out vec3 worldPosition;
+
+
+  highp vec4 vert () {
+
+    StandardVertInput In;
+    CCVertInput(In);
+
+    mat4 matWorld, matWorldIT;
+    CCGetWorldMatrixFull(matWorld, matWorldIT);
+    posx = In.position.x;
+
+    vec4 WorldPos = matWorld * In.position;
+    worldPosition = vec3(WorldPos.x,WorldPos.y,WorldPos.z);
+    highp vec4 pos = cc_matProj * (cc_matView * matWorld) * In.position;
+    vec3 normal = normalize((matWorldIT * vec4(In.normal, 0.0)).xyz);
+    v_normal = vec3(-normal.x,-normal.y,-normal.z);
+    #if USE_VERTEX_COLOR
+      v_color = a_color;
+    #endif
+
+    return pos;
+  }
+}%
+
+
+
+CCProgram phong-fs %{
+  precision mediump float;
+  #include <cc-global>
+  #include <output>
+  #include <shared-ubos>
+
+  #if USE_VERTEX_COLOR
+    in vec4 v_color;
+    in float posx;
+  #endif
+    in vec3 v_normal;
+    in vec3 worldPosition;
+  vec4 frag () {
+    vec4 base = albedo;
+
+    vec4 mainLitColor = cc_mainLitColor;
+    vec3 lightDir = cc_mainLitDir.xyz;
+
+
+    float diffuseScale = dot(v_normal,lightDir);
+    if(diffuseScale <= 0.0)
+    {
+      diffuseScale = 0.0;
+    }
+    if(diffuseScale>=1.0)
+    {
+      diffuseScale = 1.0;
+    }
+
+    vec4 diffuseColor = vec4(base.x*diffuseScale*Diffuse,base.y*diffuseScale*Diffuse,base.z*diffuseScale*Diffuse,base.w*diffuseScale*Diffuse);
+    vec3 viewDir = normalize(cc_cameraPos.xyz - worldPosition);
+
+    vec3 halfDir = normalize(lightDir+viewDir);
+
+    float specularScale = dot(halfDir,v_normal);
+    if(specularScale <= 0.0)
+    {
+      specularScale = 0.0;
+    }
+    if(specularScale>=1.0)
+    {
+      specularScale = 1.0;
+    }
+
+    vec4 specularColor = vec4(specular.x* pow(specularScale,Gloss),specular.y* pow(specularScale,Gloss),specular.z* pow(specularScale,Gloss),specular.w* pow(specularScale,Gloss));
+
+    vec4 o = base*v_color + diffuseColor*v_color*mainLitColor +  specularColor*mainLitColor;
+
+    if (posx > Progress - HalfWidth && posx < Progress + HalfWidth)
+    {
+        float dis = (HalfWidth - abs(posx - Progress)) / HalfWidth;
+        o.rgb = vec3(1.0,1.0,1.0);
+    }
+
+    base *= v_color;
+    return CCFragOutput(o);
+  }
+}%
+
+

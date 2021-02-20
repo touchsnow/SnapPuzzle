@@ -1,0 +1,19 @@
+info face="Arial" size=32 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=32 base=26 scaleW=256 scaleH=256 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="Letters_0.png"
+chars count=15
+char id=65   x=48    y=0     width=42    height=45    xoffset=0     yoffset=0     xadvance=42    page=0  chnl=15
+char id=66   x=114   y=46    width=35    height=45    xoffset=0     yoffset=0     xadvance=35    page=0  chnl=15
+char id=67   x=39    y=46    width=37    height=45    xoffset=0     yoffset=0     xadvance=37    page=0  chnl=15
+char id=68   x=134   y=0     width=40    height=45    xoffset=0     yoffset=0     xadvance=40    page=0  chnl=15
+char id=69   x=150   y=46    width=33    height=45    xoffset=0     yoffset=0     xadvance=33    page=0  chnl=15
+char id=70   x=217   y=46    width=31    height=45    xoffset=0     yoffset=0     xadvance=31    page=0  chnl=15
+char id=71   x=175   y=0     width=39    height=45    xoffset=0     yoffset=0     xadvance=39    page=0  chnl=15
+char id=72   x=215   y=0     width=38    height=45    xoffset=0     yoffset=0     xadvance=38    page=0  chnl=15
+char id=73   x=27    y=92    width=10    height=45    xoffset=0     yoffset=0     xadvance=10    page=0  chnl=15
+char id=74   x=0     y=92    width=26    height=45    xoffset=0     yoffset=0     xadvance=26    page=0  chnl=15
+char id=75   x=77    y=46    width=36    height=45    xoffset=0     yoffset=0     xadvance=36    page=0  chnl=15
+char id=76   x=184   y=46    width=32    height=45    xoffset=0     yoffset=0     xadvance=32    page=0  chnl=15
+char id=77   x=0     y=0     width=47    height=45    xoffset=0     yoffset=0     xadvance=47    page=0  chnl=15
+char id=78   x=0     y=46    width=38    height=45    xoffset=0     yoffset=0     xadvance=38    page=0  chnl=15
+char id=79   x=91    y=0     width=42    height=45    xoffset=0     yoffset=0     xadvance=42    page=0  chnl=15

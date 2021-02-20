@@ -1,0 +1,73 @@
+{
+  "ver": "1.0.17",
+  "importer": "image",
+  "imported": true,
+  "uuid": "df68f8c0-4174-4370-8101-a064f0a2a780",
+  "files": [
+    ".png",
+    ".json"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "df68f8c0-4174-4370-8101-a064f0a2a780@6c48a",
+      "displayName": "圆角矩形 11",
+      "id": "6c48a",
+      "name": "texture",
+      "ver": "1.0.19",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "premultiplyAlpha": false,
+        "anisotropy": 1,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "df68f8c0-4174-4370-8101-a064f0a2a780"
+      }
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "df68f8c0-4174-4370-8101-a064f0a2a780@f9941",
+      "displayName": "圆角矩形 11",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "ver": "1.0.8",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 78,
+        "height": 42,
+        "rawWidth": 78,
+        "rawHeight": 42,
+        "borderTop": 20,
+        "borderBottom": 20,
+        "borderLeft": 34,
+        "borderRight": 34,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "df68f8c0-4174-4370-8101-a064f0a2a780@6c48a",
+        "atlasUuid": ""
+      }
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "redirect": "df68f8c0-4174-4370-8101-a064f0a2a780@f9941"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "ver": "1.0.17",
+  "importer": "image",
+  "imported": true,
+  "uuid": "5a27eb9f-01bd-4a63-ac87-e8d9b32d815e",
+  "files": [
+    ".png",
+    ".json"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "5a27eb9f-01bd-4a63-ac87-e8d9b32d815e@6c48a",
+      "displayName": "WaterFresnel",
+      "id": "6c48a",
+      "name": "texture",
+      "ver": "1.0.19",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {},
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "premultiplyAlpha": false,
+        "anisotropy": 1,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "5a27eb9f-01bd-4a63-ac87-e8d9b32d815e"
+      }
+    }
+  },
+  "userData": {
+    "type": "texture",
+    "redirect": "5a27eb9f-01bd-4a63-ac87-e8d9b32d815e@6c48a"
+  }
+}
